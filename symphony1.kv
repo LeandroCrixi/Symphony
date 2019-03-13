@@ -1,0 +1,1522 @@
+<FlatButton@ButtonBehavior+Label>:
+    font_size: 14
+
+<Button@Button>:
+    background_normal: ''
+    background_color:(0.27,0.51,0.70 ,1)
+
+<TextInput@TextInput>:
+    multiline: False
+
+
+<MainManagement>: # Managing all Screens
+    LoginScreen:
+        name:'login'    # name for LoginScreen
+    MenuScreen:
+        name:'menu' # name for MenuScreen
+#---------------------Menu Sales---------------------------
+    SalesScreen:
+        name:'sales'    # name for SalesScreen
+    ScannerScreen:
+        name:'scanner'
+    OpenReceipts:
+        name: 'openReceipts'
+    ReceiptList:
+        name: 'receiptList'
+#----------------Menu Finances-----------------------------
+    FinancesScreen:
+        name:'finances'
+    PayableScreen:
+        name:'payable'
+    ReceivableScreen:
+        name:'receivable'
+#---------------Management Screen--------------------------
+    ManagementScreen:
+        name:'management'
+    CustomerScreen:
+        name:'customer'
+    ProviderScreen:
+        name:'provider'
+    ProductScreen:
+        name:'product'
+#---------------Report Screen------------------------------
+    ReportsScreen:
+        name:'reports'
+
+#------------------Login Screen---------------------------
+<LoginScreen>:  # Login Screen with button, Labels and Text Input
+    id: login_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation:'vertical'
+        padding:180
+        spacing:30
+        Label:
+            text:'LOGO'
+        GridLayout:
+            cols:2
+            spacing: 5
+            Label:
+                text:'username'
+            TextInput:
+            Label:
+                text:'password'
+            TextInput:
+        FloatLayout:
+            Button:
+                text:'Login'
+                pos: 330, 210
+                size_hint: 0.4, 0.5
+                on_release: app.root.current = 'menu'   # changing to 'Menu' Screen
+
+#------------------Main Menu Screen---------------------------
+<MenuScreen>:
+    id: main_menu_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Login'
+                    on_release: app.root.current = 'login'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:  # A BoxLayout with different buttons to be transferred to different Screens
+            orientation:'vertical'
+            padding:100
+            spacing:30
+            Label:
+                text:'MENU'
+            Button:
+                text:'Sales'
+                on_release: app.root.current = 'sales'
+            Button:
+                text:'Finances'
+                on_release: app.root.current = 'finances'
+            Button:
+                text:'Management'
+                on_release: app.root.current = 'management'
+            Button:
+                text:'Reports'
+                on_release: app.root.current = 'reports'
+
+
+#------------------Sales Screen---------------------------
+<SalesScreen>:
+    id: sales_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Main Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:  # A BoxLayout with different buttons to be transferred to different Screens
+            id: salesMenu
+            orientation:'vertical'
+            padding:100
+            spacing:30
+            Label:
+                text:'SALES'
+            Button:
+                text:'Scanner'
+                on_release: app.root.current = 'scanner'
+            Button:
+                text:'Open Receipts'
+                on_release: app.root.current = 'openReceipts'
+            Button:
+                text:'Receipt List'
+                on_release: app.root.current = 'receiptList'
+
+#------------------Scanner Screen---------------------------
+<ScannerScreen>:
+    id: scanner_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Sales'
+                    on_release: app.root.current = 'sales'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Scanner'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+
+
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: product_details
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+                spacing: 10
+
+                BoxLayout:
+                    id: product_labels
+                    size_hint_y: None
+                    height: 25
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    FlatButton:
+                        text: 'Code'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: 'Product Name'
+                        size_hint_x: 0.3
+                    FlatButton:
+                        text: 'Qty'
+                        size_hint_x: 0.1    # alterando a largura de cada coluna individualmente
+                    FlatButton:
+                        text: 'Un. Price'
+                        size_hint_x: 0.1
+                    FlatButton:
+                        text: ''
+                        size_hint_x: 0.2
+
+#----Take those informations and add them to the cart--------
+                BoxLayout:
+                    id: product_inputs
+                    size_hint_y: None
+                    height: 30
+                    spacing: 5
+                    TextInput:
+                        id: code_inp
+                        size_hint_x: 0.2
+                        multiline: False    # desabilita o multiline da tecla ENTER
+                    TextInput:
+                        id: name_inp
+                        size_hint_x: 0.3
+                    TextInput:
+                        id: qty_inp
+                        size_hint_x: 0.1
+                    TextInput:
+                        id: price_inp
+                        size_hint_x: 0.1
+                    Button:
+                        id: button_inp
+                        size_hint_x: 0.2
+                        text:'Add to Cart'
+                        background_normal: ''
+                        background_color:(0.30,0.51,0.85 ,1)
+                        on_release: root.add_cart()
+
+                BoxLayout:
+                    id: add_to_cart
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        canvas.before:
+                            Color:
+                                rgba: (0.27,0.51,0.70 ,1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        Label:
+                            text: 'Code'
+                            size_hint_x: 0.2
+                        Label:
+                            text: 'Products Name'
+                            size_hint_x: 0.3
+                        Label:
+                            text: 'Qty'
+                            size_hint_x: 0.1
+                        Label:
+                            text: 'Price'
+                            size_hint_x: 0.1
+                        Label:
+                            text: 'Products Total'
+                            size_hint_x: 0.2
+
+#----------------This is the cart-------------------------
+                    GridLayout:
+                        id: cart_win
+                        cols: 1
+
+                    FloatLayout:
+                        id: buttons
+                        TextInput:
+                            id:account_no_scanner
+                            pos: 150, 30
+                            size_hint: 0.04, 0.2
+                        Button:
+                            text:'Accounts'
+                            pos: 200, 30
+                            size_hint: 0.1, 0.2
+                            on_release: root.save_account_receipt()
+                        Button:
+                            text:'SAVE'
+                            pos: 370, 30
+                            size_hint: 0.1, 0.2
+                            on_release: root.save_open_receipt()
+                        Button:
+                            text:'CheckOut'
+                            pos: 540, 30
+                            size_hint: 0.1, 0.2
+                            on_release: root.save_checkout_receipt()
+#                        Button:
+#                            text: 'Clean'
+#                            pos: 600, 30
+#                            size_hint: 0.1, 0.2
+#                            on_release: root.clean_win()
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+#------------------Open Receipts Screen---------------------------
+<OpenReceipts>:
+    id: receipts_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Sales'
+                    on_release: app.root.current = 'sales'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Open Receipts'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: product_details
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+                spacing: 10
+
+                BoxLayout:
+                    id: product_labels
+                    size_hint_y: None
+                    height: 26
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    Button:
+                        text: 'Data'
+                        size_hint_x: 0.3
+                    Button:
+                        text: 'Receipt no.'
+                        size_hint_x: 0.1
+                    TextInput:
+                        id:receipt_no
+                        size_hint_x: 0.06
+                    Button:
+                        text: 'Description'
+                        size_hint_x: 0.3    # alterando a largura de cada coluna individualmente
+                    Button:
+                        text: 'Amount'
+                        size_hint_x: 0.2
+                GridLayout:
+                    id: receipts_open
+                    cols: 1
+
+                FloatLayout:
+                    id: buttons
+                    TextInput:
+                        id:account_no_receipts
+                        pos: 170, 70
+                        size_hint: 0.04, 0.2
+                    Button:
+                        text:'Accouts'
+                        pos: 220, 70
+                        size_hint: 0.1, 0.2
+                        on_release: root.update_receipt_toAccount()
+                    Button:
+                        text:'Update'
+                        pos: 370, 70
+                        size_hint: 0.1, 0.2
+                        on_release: root.show_open_receipts()
+                    Button:
+                        text:'CheckOut'
+                        pos: 520, 70
+                        size_hint: 0.1, 0.2
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+#------------------Receipt List Screen---------------------------
+<ReceiptList>:
+    id: list_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Sales'
+                    on_release: app.root.current = 'sales'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Saved Receipts'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: product_details
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+                spacing: 10
+
+                BoxLayout:
+                    id: product_labels
+                    size_hint_y: None
+                    height: 25
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    Button:
+                        text: 'Data'
+                        size_hint_x: 0.2
+                    Button:
+                        text: 'Receipt no.'
+                        size_hint_x: 0.2
+                    Button:
+                        text: 'Description'
+                        size_hint_x: 0.4    # alterando a largura de cada coluna individualmente
+                    Button:
+                        text: 'Amount'
+                        size_hint_x: 0.2
+                GridLayout:
+                    id: all_receipts
+                    cols: 1
+
+                FloatLayout:
+                    id: buttons
+                    Button:
+                        text:'Update'
+                        pos: 370, 70
+                        size_hint: 0.1, 0.2
+                        on_release: root.show_receipts()
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+#------------------Finance Menu---------------------------
+<FinancesScreen>:
+    id: finances_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Main Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:  # A BoxLayout with different buttons to be transferred to different Screens
+            orientation:'vertical'
+            padding:100
+            spacing:30
+            Label:
+                text:'FINANCES'
+            Button:
+                text:'Payable'
+                on_release: app.root.current = 'payable'
+            Button:
+                text:'Receivable'
+                on_release: app.root.current = 'receivable'
+
+#------------------Payable Screen---------------------------
+<PayableScreen>:
+    id: payable_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Finances'
+                    on_release: app.root.current = 'finances'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Payable Bills'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+
+
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: product_details
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+                spacing: 10
+
+                BoxLayout:
+                    id: product_labels
+                    size_hint_y: None
+                    height: 25
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    FlatButton:
+                        text: 'Bank Slip'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: 'Category'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: 'Provider'
+                        size_hint_x: 0.2    # alterando a largura de cada coluna individualmente
+                    FlatButton:
+                        text: 'Expire Date'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: 'Total Price'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: ''
+                        size_hint_x: 0.2
+
+                BoxLayout:
+                    id: product_inputs
+                    size_hint_y: None
+                    height: 30
+                    spacing: 5
+                    TextInput:
+                        id: bank_inp
+                        size_hint_x: 0.2
+                        multiline: False    # desabilita o multiline da tecla ENTER
+                    TextInput:
+                        id: cat_inp
+                        size_hint_x: 0.2
+                    TextInput:
+                        id: provider_inp
+                        size_hint_x: 0.2
+                    TextInput:
+                        id: date_inp
+                        size_hint_x: 0.2
+                    TextInput:
+                        id: total_inp
+                        size_hint_x: 0.2
+                    Button:
+                        id: button_inp
+                        size_hint_x: 0.2
+                        text:'Add a New Bill'
+                        background_normal: ''
+                        background_color:(0.30,0.51,0.85 ,1)
+                        on_release: root.add_payable()
+
+                BoxLayout:
+                    id: add_to_cart
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        canvas.before:
+                            Color:
+                                rgba: (0.27,0.51,0.70 ,1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        Label:
+                            text: 'Bank Slip'
+                            size_hint_x: 0.2
+                        Label:
+                            text: 'Category'
+                            size_hint_x: 0.2
+                        Label:
+                            text: 'Provider'
+                            size_hint_x: 0.2
+                        Label:
+                            text: 'Expire Date'
+                            size_hint_x: 0.2
+                        Label:
+                            text: 'Total Price'
+                            size_hint_x: 0.2
+                        Label:
+                            text: ''
+                            size_hint_x: 0.2
+
+                    GridLayout:
+                        id: bills_cart
+                        cols: 1
+
+                    FloatLayout:
+                        id: buttons
+                        Button:
+                            text:'Update'
+                            pos: 370, 70
+                            size_hint: 0.1, 0.2
+                            on_release: root.show_bills()
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 20
+                        canvas.before:
+                            Color:
+                                rgba: (0.27,0.51,0.70 ,1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+
+#------------------Receivable Screen---------------------------
+<ReceivableScreen>:
+    id: receivable_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Finances'
+                    on_release: app.root.current = 'finances'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Receivable Bills'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+
+
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: product_details
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+                spacing: 10
+
+                BoxLayout:
+                    id: product_labels
+                    size_hint_y: None
+                    height: 25
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    FlatButton:
+                        text: 'Account Number'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: 'Receipts on It'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: 'Total to Pay'
+                        size_hint_x: 0.2    # alterando a largura de cada coluna individualmente
+                    FlatButton:
+                        text: 'Top Up'
+                        size_hint_x: 0.2
+                    FlatButton:
+                        text: ''
+                        size_hint_x: 0.2
+
+                GridLayout:
+                    id: receivable_bills
+                    cols: 1
+
+                FloatLayout:
+                    id: buttons
+                    Button:
+                        text:'Update'
+                        pos: 370, 70
+                        size_hint: 0.1, 0.2
+                        on_release: root.show_receive_bills()
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+
+#------------------Management Screen---------------------------
+<ManagementScreen>:
+    id: manag_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Main Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:  # A BoxLayout with different buttons to be transferred to different Screens
+            orientation:'vertical'
+            padding:100
+            spacing:30
+            Label:
+                text:'MANAGEMENT'
+            Button:
+                text:'Customer'
+                on_release: app.root.current = 'customer'
+            Button:
+                text:'Provider'
+                on_release: app.root.current = 'provider'
+            Button:
+                text:'Product'
+                on_release: app.root.current = 'product'
+
+#------------------Customer Screen-------------------------
+<CustomerScreen>:
+    id: customer_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Management'
+                    on_release: app.root.current = 'management'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Customer'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+
+
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: custumer
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 65
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    GridLayout:
+                        padding:20
+                        spacing:10
+                        cols:3
+                        Label:
+                            text:'PPS Number'
+                            size_hint_x: 0.2
+                            size_hint_y: None
+                            height: 30
+                        TextInput:
+                            size_hint_x: 0.2
+                        Button:
+                            id: test_bt
+                            text:'Search'
+                            size_hint_x: 0.2
+                            background_normal: ''
+                            background_color:(0.30,0.51,0.85 ,1)
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 350
+                    padding:20
+                    spacing:10
+                    GridLayout:
+                        cols: 4
+                        spacing: 10
+                        size_hint_y: None
+                        height: 220
+                        Label:
+                            text:'No.'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: id_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'PPS No.'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: pps_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Name'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: name_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Surname'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: surname_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Phone No.1'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: phone_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Phone No.2'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: phone2_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Address'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: address_inp
+                        Label:
+                            text:'Street Add.'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: street_inp
+                        Label:
+                            text:'City'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: city_inp
+                        Label:
+                            text:'e-mail'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: email_inp
+                        Label:
+                            text:'Credit'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: credit_inp
+                        Label:
+                            text:' '
+                            size_hint_x: 0.2
+                        Label:
+                            text:' '
+                            size_hint_x: 0.2
+                    FloatLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            id: save_customer
+                            text:'SAVE'
+                            pos: 340, 70
+                            size_hint_x: 0.2
+                            size_hint_y: 0.5
+                            on_release: root.save_Customer()
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+
+#----------------Provider Screen--------------------------
+<ProviderScreen>:
+    id: provider_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Management'
+                    on_release: app.root.current = 'management'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Provider'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+
+
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: custumer
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 65
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    GridLayout:
+                        padding:20
+                        spacing:10
+                        cols:3
+                        Label:
+                            text:'National Number'
+                            size_hint_x: 0.2
+                        TextInput:
+                            size_hint_x: 0.2
+                        Button:
+                            text:'Search'
+                            size_hint_x: 0.2
+                            background_normal: ''
+                            background_color:(0.30,0.51,0.85 ,1)
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 330
+                    padding:20
+                    spacing:10
+                    GridLayout:
+                        cols: 4
+                        spacing: 10
+                        size_hint_y: None
+                        height: 200
+                        Label:
+                            text:'No.'
+                            size_hint_x: 0.3
+                        TextInput:
+                            size_hint_x: 0.2
+                        Label:
+                            text:'National No.'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: national_no
+                            size_hint_x: 0.2
+                        Label:
+                            text:'P. Name'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_name_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Contact'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: contact_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Phone No.1'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_phone_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Phone No.2'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_phone2_inp
+                            size_hint_x: 0.2
+                        Label:
+                            text:'Address'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_address_inp
+                        Label:
+                            text:'Street Add.'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_street_inp
+                        Label:
+                            text:'City'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_city_ipn
+                        Label:
+                            text:'e-mail'
+                            size_hint_x: 0.3
+                        TextInput:
+                            id: p_email_inp
+                    FloatLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            text:'SAVE'
+                            pos: 340, 70
+                            size_hint_x: 0.2
+                            size_hint_y: 0.5
+                            on_release: root.save_provider()
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+
+
+#----------------Product Screen--------------------------
+<ProductScreen>:
+    id: product_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        id: bar
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                canvas.before:
+                    Color:
+                        rgba: (0.27,0.51,0.70 ,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                ActionPrevious:
+                    title:'Management'
+                    on_release: app.root.current = 'management'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 15
+            canvas.before:
+                Color:
+                    rgba: (0.27,0.51,0.70 ,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'Product'
+                bold: True
+                color: (1,1,1,1) # Muda a cor do texto
+
+        BoxLayout:
+            id: window
+            padding: 10
+            BoxLayout:
+                id: custumer
+                orientation: 'vertical'
+                size_hint_x: 0.8    # esse BoxLayout tem 80% do espaco vertical
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 65
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    GridLayout:
+                        padding:20
+                        spacing:10
+                        cols:3
+                        Label:
+                            text:'Product'
+                            size_hint_x: 0.2
+                        TextInput:
+                            size_hint_x: 0.2
+                        Button:
+                            text:'Search'
+                            size_hint_x: 0.2
+                            background_normal: ''
+                            background_color:(0.30,0.51,0.85 ,1)
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 330
+                    padding:20
+                    spacing:10
+                    GridLayout:
+                        cols: 4
+                        spacing: 10
+                        size_hint_y: None
+                        height: 115
+                        Label:
+                            text:'No.'
+                            size_hint_x: 0.2
+                        TextInput:
+                            size_hint_x: 0.8
+                        Label:
+                            text:'Category'
+                            size_hint_x: 0.2
+                        TextInput:
+                            id: category_inp
+                            size_hint_x: 0.8
+                        Label:
+                            text:'P. Name'
+                            size_hint_x: 0.2
+                        TextInput:
+                            id: pro_name_inp
+                            size_hint_x: 0.8
+                        Label:
+                            text:'Payed Price'
+                            size_hint_x: 0.2
+                        TextInput:
+                            id: payed_price_inp
+                            size_hint_x: 0.8
+                        Label:
+                            text:'Provider'
+                            size_hint_x: 0.2
+                        TextInput:
+                            id: pro_provider_inp
+                            size_hint_x: 0.8
+                        Label:
+                            text:'Price to Sell'
+                            size_hint_x: 0.2
+                        TextInput:
+                            id: price_sell_inp
+                            size_hint_x: 0.8
+                    FloatLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            text:'SAVE'
+                            pos: 340, 70
+                            size_hint_x: 0.2
+                            size_hint_y: 0.5
+                            on_release: root.save_product()
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0.27,0.51,0.70 ,1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+        BoxLayout:
+            id: footer
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba:(0.27,0.51,0.70 ,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'Symphony'
+
+
+#------------------Report Screen---------------------------
+<ReportsScreen>:
+    id: reports_win
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (0.68,0.85,0.90 ,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title:'Reports'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'X'
+                    on_release: app.stop()
+        BoxLayout:  # A BoxLayout with different buttons to be transferred to different Screens
+            orientation:'vertical'
+            padding:100
+            spacing:30
+            Label:
+                text:'REPORTS'
+            Button:
+                text:'Sales'
+                #on_release: app.root.current = ''
+            Button:
+                text:'Finances'
+                #on_release: app.root.current = ''
+            Button:
+                text:'Providers'
+                #on_release: app.root.current = ''
+            Button:
+                text:'Products'
+                #on_release: app.root.current = ''
